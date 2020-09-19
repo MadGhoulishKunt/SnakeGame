@@ -13,8 +13,8 @@ public class SnakeGame extends Application {
 
     public static final int WINDOW_WIDTH = 500;
     public static final int WINDOW_HEIGHT = 500;
-    int speed = 10;
     Snake snake;
+    Apple apple;
     Direction dir;
     Thread thread;
     private boolean started = false;
@@ -24,6 +24,7 @@ public class SnakeGame extends Application {
         Group group = new Group();
         Scene scene = new Scene(group, WINDOW_WIDTH, WINDOW_HEIGHT);
         initGame();
+        group.getChildren().add(apple.getShape());
         group.getChildren().addAll(snake.getParts());
         moveSnakeOnKeyPress(scene);
         stage.setScene(scene);
@@ -37,7 +38,8 @@ public class SnakeGame extends Application {
     }
 
     public void initGame(){
-        snake = new Snake();
+        apple = new Apple(100, 100);
+        snake = new Snake(this);
         Runnable r = new UpdateThread(this, snake);
         thread = new Thread(r);
     }
@@ -47,7 +49,7 @@ public class SnakeGame extends Application {
         thread.start();
     }
 
-    public void updateSnake(){
+    public void updateGame(){
         Platform.runLater(() -> {
             snake.move();
         });
@@ -55,11 +57,11 @@ public class SnakeGame extends Application {
 
     private void moveSnakeOnKeyPress(Scene scene) {
         scene.setOnKeyPressed(event -> {
+            if (!started)
+                newGame();
             switch (event.getCode()) {
                 case UP -> {
                     if (dir == Direction.DOWN) return;
-                    if (!started)
-                        newGame();
                     if (snake != null) {
                         dir = Direction.UP;
                         snake.changeDirection(dir);
@@ -67,7 +69,6 @@ public class SnakeGame extends Application {
                 }
                 case RIGHT -> {
                     if (dir == Direction.LEFT) return;
-                    if (!started) newGame();
                     if (snake != null) {
                         dir = Direction.RIGHT;
                         snake.changeDirection(dir);
@@ -75,7 +76,6 @@ public class SnakeGame extends Application {
                 }
                 case DOWN -> {
                     if (dir == Direction.UP) return;
-                    if (!started) newGame();
                     if (snake != null) {
                         dir = Direction.DOWN;
                         snake.changeDirection(dir);
@@ -83,7 +83,6 @@ public class SnakeGame extends Application {
                 }
                 case LEFT -> {
                     if (dir == Direction.RIGHT) return;
-                    if (!started) newGame();
                     if (snake != null) {
                         dir = Direction.LEFT;
                         snake.changeDirection(dir);
@@ -95,12 +94,21 @@ public class SnakeGame extends Application {
 
     public void gameOver(){
         try {
-            Thread.sleep(4000);
+            Thread.sleep(1000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
         System.out.println("you lost");
         System.exit(5);
     }
+
+    public void setApple(Apple apple) {
+        this.apple = apple;
+    }
+
+    public Apple getApple() {
+        return apple;
+    }
+
 
 }

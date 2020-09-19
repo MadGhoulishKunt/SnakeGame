@@ -17,14 +17,18 @@ public class UpdateThread implements Runnable {
         int runCount = 0;
         try {
             while (!snake.isGameOver()) {
-                game.updateSnake();
+                snake.check();
+                game.updateGame();
                 if (snake.isGameOver()) {
                     Thread.currentThread().interrupt();
                     System.exit(3);
                 }
+//                if (!Thread.currentThread().isInterrupted()) {
+//                    game.group.getChildren().setAll(snake.getParts());
+//                }
                 Thread.sleep(DELAY);
                 runCount++;
-                System.out.println(Thread.currentThread().getName() + " executed " + runCount + " times");
+//                System.out.println(Thread.currentThread().getName() + " executed " + runCount + " times");
             }
         } catch (InterruptedException ex) {
             game.gameOver();
