@@ -14,7 +14,6 @@ public class Snake {
 
     private Direction dir;
     public List<Rectangle> snakeParts;
-    private Rectangle temp;
     private boolean over = false;
 
     public Snake(){
@@ -60,7 +59,7 @@ public class Snake {
 
     private void moveBody() {
         for (int i = snakeParts.size() - 1; i > 0; i--) {
-            temp = snakeParts.get(i - 1);
+            Rectangle temp = snakeParts.get(i - 1);
             snakeParts.get(i).setX(temp.getX());
             snakeParts.get(i).setY(temp.getY());
         }
