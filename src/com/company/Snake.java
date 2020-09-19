@@ -15,7 +15,6 @@ public class Snake {
     private SnakeGame game;
     private Direction dir;
     public List<Rectangle> snakeParts;
-//    private Rectangle head;
     private Rectangle temp;
     private Rectangle ass;
     private boolean over = false;
@@ -29,29 +28,29 @@ public class Snake {
         switch (dir){
             case UP:
                 moveBody();
-                snakeParts.get(0).setY(snakeParts.get(0).getY() - snake_height);
-                if (snakeParts.get(0).getY() < 0){
+                head().setY(head().getY() - snake_height);
+                if (head().getY() < 0){
                     over = true;
                 }
                 break;
             case DOWN:
                 moveBody();
-                snakeParts.get(0).setY(snakeParts.get(0).getY() + snake_height);
-                if (snakeParts.get(0).getY() > SnakeGame.WINDOW_HEIGHT){
+                head().setY(head().getY() + snake_height);
+                if (head().getY() > SnakeGame.WINDOW_HEIGHT){
                     over = true;
                 }
                 break;
             case LEFT:
                 moveBody();
-                snakeParts.get(0).setX(snakeParts.get(0).getX() - snake_height);
-                if (snakeParts.get(0).getX() < 0){
+                head().setX(head().getX() - snake_height);
+                if (head().getX() < 0){
                     over = true;
                 }
                 break;
             case RIGHT:
                 moveBody();
-                snakeParts.get(0).setX(snakeParts.get(0).getX() + snake_height);
-                if (snakeParts.get(0).getX() > SnakeGame.WINDOW_WIDTH){
+                head().setX(head().getX() + snake_height);
+                if (head().getX() > SnakeGame.WINDOW_WIDTH){
                     over = true;
                 }
                 break;
@@ -74,9 +73,9 @@ public class Snake {
         return snakeParts;
     }
 
-//    public Rectangle getHead(){
-//        return head;
-//    }
+    public Rectangle head(){
+        return snakeParts.get(0);
+    }
 
     private void initDefaults() {
         snakeParts = Collections
