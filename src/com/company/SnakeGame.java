@@ -14,7 +14,6 @@ public class SnakeGame extends Application {
     public static final int WINDOW_WIDTH = 500;
     public static final int WINDOW_HEIGHT = 500;
     int speed = 10;
-    public Group group = new Group();
     Snake snake;
     Direction dir;
     Thread thread;
@@ -22,6 +21,7 @@ public class SnakeGame extends Application {
 
     @Override
     public void start(Stage stage){
+        Group group = new Group();
         Scene scene = new Scene(group, WINDOW_WIDTH, WINDOW_HEIGHT);
         initGame();
         group.getChildren().addAll(snake.getParts());
@@ -37,7 +37,7 @@ public class SnakeGame extends Application {
     }
 
     public void initGame(){
-        snake = new Snake(this);
+        snake = new Snake();
         Runnable r = new UpdateThread(this, snake);
         thread = new Thread(r);
     }

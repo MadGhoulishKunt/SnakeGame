@@ -12,48 +12,45 @@ public class Snake {
     public static final int snake_width = 10;
     public static final int snake_height = 10;
 
-    private SnakeGame game;
     private Direction dir;
     public List<Rectangle> snakeParts;
     private Rectangle temp;
-    private Rectangle ass;
     private boolean over = false;
 
-    public Snake(SnakeGame game){
-        this.game = game;
+    public Snake(){
         initDefaults();
     }
 
     public void move(){
-        switch (dir){
-            case UP:
+        switch (dir) {
+            case UP -> {
                 moveBody();
                 head().setY(head().getY() - snake_height);
-                if (head().getY() < 0){
+                if (head().getY() < 0) {
                     over = true;
                 }
-                break;
-            case DOWN:
+            }
+            case DOWN -> {
                 moveBody();
                 head().setY(head().getY() + snake_height);
-                if (head().getY() > SnakeGame.WINDOW_HEIGHT){
+                if (head().getY() > SnakeGame.WINDOW_HEIGHT) {
                     over = true;
                 }
-                break;
-            case LEFT:
+            }
+            case LEFT -> {
                 moveBody();
                 head().setX(head().getX() - snake_height);
-                if (head().getX() < 0){
+                if (head().getX() < 0) {
                     over = true;
                 }
-                break;
-            case RIGHT:
+            }
+            case RIGHT -> {
                 moveBody();
                 head().setX(head().getX() + snake_height);
-                if (head().getX() > SnakeGame.WINDOW_WIDTH){
+                if (head().getX() > SnakeGame.WINDOW_WIDTH) {
                     over = true;
                 }
-                break;
+            }
         }
     }
 
