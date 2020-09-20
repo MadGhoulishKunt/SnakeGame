@@ -5,7 +5,6 @@ import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
@@ -13,6 +12,9 @@ public class SnakeGame extends Application {
 
     public static final int WINDOW_WIDTH = 500;
     public static final int WINDOW_HEIGHT = 500;
+    public int SPEED = 100;
+    public Group group;
+    public Scene scene;
     Snake snake;
     Apple apple;
     Direction dir;
@@ -21,8 +23,8 @@ public class SnakeGame extends Application {
 
     @Override
     public void start(Stage stage){
-        Group group = new Group();
-        Scene scene = new Scene(group, WINDOW_WIDTH, WINDOW_HEIGHT);
+        group = new Group();
+        scene = new Scene(group, WINDOW_WIDTH, WINDOW_HEIGHT);
         initGame();
         group.getChildren().add(apple.getShape());
         group.getChildren().addAll(snake.getParts());
@@ -38,7 +40,7 @@ public class SnakeGame extends Application {
     }
 
     public void initGame(){
-        apple = new Apple(100, 100);
+        apple = new Apple(150, 150);
         snake = new Snake(this);
         Runnable r = new UpdateThread(this, snake);
         thread = new Thread(r);
@@ -51,17 +53,18 @@ public class SnakeGame extends Application {
 
     public void updateGame(){
         Platform.runLater(() -> {
+            snake.check();
             snake.move();
         });
     }
 
     private void moveSnakeOnKeyPress(Scene scene) {
         scene.setOnKeyPressed(event -> {
-            if (!started)
-                newGame();
             switch (event.getCode()) {
                 case UP -> {
                     if (dir == Direction.DOWN) return;
+                    if (!started)
+                        newGame();
                     if (snake != null) {
                         dir = Direction.UP;
                         snake.changeDirection(dir);
@@ -69,6 +72,8 @@ public class SnakeGame extends Application {
                 }
                 case RIGHT -> {
                     if (dir == Direction.LEFT) return;
+                    if (!started)
+                        newGame();
                     if (snake != null) {
                         dir = Direction.RIGHT;
                         snake.changeDirection(dir);
@@ -76,6 +81,8 @@ public class SnakeGame extends Application {
                 }
                 case DOWN -> {
                     if (dir == Direction.UP) return;
+                    if (!started)
+                        newGame();
                     if (snake != null) {
                         dir = Direction.DOWN;
                         snake.changeDirection(dir);
@@ -83,6 +90,8 @@ public class SnakeGame extends Application {
                 }
                 case LEFT -> {
                     if (dir == Direction.RIGHT) return;
+                    if (!started)
+                        newGame();
                     if (snake != null) {
                         dir = Direction.LEFT;
                         snake.changeDirection(dir);

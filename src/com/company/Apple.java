@@ -29,7 +29,7 @@ public class Apple {
 
     private double getNew() {
         int d = 501;
-        while (d >= 500 || d % 10 != 0) {
+        while (d >= 500 || d % apple_height != 0) {
             d = r.nextInt(500);
         }
         return d;
