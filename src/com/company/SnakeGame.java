@@ -5,6 +5,8 @@ import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
@@ -36,6 +38,8 @@ public class SnakeGame extends Application {
                 System.exit(4);
             }
         });
+        stage.setResizable(false);
+        stage.setTitle("SnakeGame");
         stage.show();
     }
 
@@ -53,8 +57,8 @@ public class SnakeGame extends Application {
 
     public void updateGame(){
         Platform.runLater(() -> {
-            snake.check();
             snake.move();
+            snake.check();
         });
     }
 
@@ -107,7 +111,6 @@ public class SnakeGame extends Application {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        System.out.println("you lost");
         System.exit(5);
     }
 

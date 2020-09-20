@@ -7,8 +7,8 @@ import java.util.Random;
 
 public class Apple {
 
-    public static final int apple_width = 10;
-    public static final int apple_height = 10;
+    public static final int apple_width = 25;
+    public static final int apple_height = 25;
 
     Random r = new Random();
     Rectangle shape;
@@ -16,6 +16,8 @@ public class Apple {
     public Apple(double x, double y) {
         this.shape = new Rectangle(x, y, apple_width, apple_height);
         shape.setFill(Color.RED);
+        shape.setArcHeight(25);
+        shape.setArcWidth(25);
     }
 
     public void next(Snake snake) {

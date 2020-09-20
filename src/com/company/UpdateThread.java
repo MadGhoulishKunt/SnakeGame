@@ -12,19 +12,16 @@ public class UpdateThread implements Runnable {
 
     @Override
     public void run() {
-        try {
-            while (!snake.isGameOver()) {
-                game.updateGame();
-                if (snake.isGameOver()) {
-                    Thread.currentThread().interrupt();
-                    System.exit(3);
-                }
+        while (!snake.isGameOver()) {
+            game.updateGame();
+            try {
                 Thread.sleep(game.SPEED);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
-        } catch (InterruptedException ex) {
-            game.gameOver();
         }
         game.gameOver();
+//        System.out.println("YOU LOST!");
     }
 
 }
